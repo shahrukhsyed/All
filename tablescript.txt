@@ -1,0 +1,73 @@
+
+create table course (courseid number primary key,coursename
+varchar2(15));
+
+create table student_course_enrollment(rollno number 
+references student(rollno),courseid number references course(courseid));
+
+insert into student(rollno,stud_name)
+values (101,'Ajit');
+
+insert into student(rollno,stud_name)
+values (102,'Megha');
+
+insert into student(rollno,stud_name)
+values (103,'Nayan');
+
+insert into student(rollno,stud_name)
+values (104,'Neha');
+
+insert into student(rollno,stud_name)
+values (105,'Amit');
+
+insert into student(rollno,stud_name)
+values (106,'Nikita');
+
+insert into student(rollno,stud_name)
+values (107,'Madhav');
+
+insert into student(rollno,stud_name)
+values (108,'Manish');
+
+insert into student(rollno,stud_name)
+values (109,'Neha');
+
+insert into student(rollno,stud_name)
+values (110,'Ankita');
+
+insert into student(rollno,stud_name)
+values (111,'Divya');
+
+
+insert into course values ( 1,'Physics');
+insert into course values ( 2,'Chemistry');
+insert into course values ( 3,'Maths');
+insert into course values ( 4,'CS');
+insert into course values ( 5,'Social Science');
+insert into course values ( 6,'History');
+
+
+insert into student_course_enrollment
+values (101,1);
+insert into student_course_enrollment
+values (102,1);
+insert into student_course_enrollment
+values (101,2);
+insert into student_course_enrollment
+values (102,2);
+insert into student_course_enrollment
+values (103,2);
+insert into student_course_enrollment
+values (103,4);
+insert into student_course_enrollment
+values (104,3);
+insert into student_course_enrollment
+values (104,1);
+insert into student_course_enrollment
+values (101,3);
+insert into student_course_enrollment
+values (102,5);
+insert into student_course_enrollment
+values (103,5);
+insert into student_course_enrollment
+values (102,4);
