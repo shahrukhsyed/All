@@ -1,0 +1,115 @@
+1:	select * from tab; 
+    
+This gives list of the tables.
+
+2:	select department_id,department_name from departments;
+
+Displays selected columns only.
+
+3.	desc employees;  
+ 
+ Describe gives you table structure.
+ -------Table--------------------
+4.	create table account
+	(
+	aid number(8) primary key,
+	mobileno number(10) unique not null,
+	accountholder varchar2(30) not null,
+	balance number(8,2) check(balance>=1000.00)
+	);
+	
+	For creating table
+
+5.	insert into account values(100,9999999999,'King',24000.00);	
+
+6.	savepoint A; 
+	
+	checkpoints for rollback 
+
+7.	insert into account values(101,9999999994,'Raja',50000.00);	
+
+8.	insert into account values(102,9999999222,'Ram',33000.00);	
+
+9.	update account set balance=30000,accountholder='King Khan' where aid=100;
+
+10.	delete from account; 
+
+// delete all the rows
+
+11. rollback to B;
+
+12. commit ///(like ctrl+s) [All DDL commands performs automatically commit]
+
+--------Basic--------------------
+
+13.	select last_name,salary,commission_pct,hire_date,job_id from employees;
+
+14.	select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where department_id=50 and job_id='ST_MAN';
+
+15.	select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where department_id=50 or job_id like '%_MAN';
+	
+16. select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where job_id in('ST_MAN','SA_MAN','PU_MAN');
+	
+17.  select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where job_id not in('ST_MAN','SA_MAN','PU_MAN');	
+
+18.	 select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where salary between 10000 and 20000;
+
+19.	 select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where salary not between 10000 and 20000;
+
+20.	 select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where salary between 10000 and 20000 order by job_id,salary;
+
+// order by must be last clause
+
+21.  select last_name,salary,commission_pct,hire_date,job_id,department_id from employees where hire_date between '01-JAN-05' and '31-DEC-08';
+
+----------Functions-----------------
+
+22.	select last_name,upper(last_name),lower(last_name) from employees; 
+//single row function  provides result for every row value.
+eg: sum,max,min,avg,count
+
+23.	select sum(salary) totalsalary,max(salary) as maxsalary,min(salary) as "Min Salary",count(salary ) "Total count",avg(salary) AverageSalary from employees;
+                       ^ Alias(column alias)                                               ^Alias                        ^Alias
+//space allowed only in double quotes
+
+24.		select count(*) as totalcount from employees;
+		// * -> can only be used with count, used to count entire record
+25.	null means empty (neither 0 nor space)
+
+26. All group functions ignore null values
+
+27. select avg(commission_pct) as totalcount,count(commission_pct) from employees;		
+
+28. select avg(nvl(commission_pct,0)) as totalcount,count(nvl(commission_pct,0)) from employees;
+
+//nvl provides replacement for null values.
+
+29. select sum(salary) as totalsalary,count(salary) from employees group by department_id;
+
+//group by clause doesn't ignore null values.
+//group function includes null value
+
+30.	select department_id,sum(salary) as totalsalary,count(salary) from employees group by department_id;
+
+31.	select department_id,sum(salary) as totalsalary,count(salary) from employees group by department_id,job_id order by department_id,job_id ;
+
+32.	select department_id,sum(salary) as totalsalary,count(salary) from employees having sum(salary) >=50000 group by department_id,job_id order by department_id,job_id ;
+
+33. select count(distinct department_id) from employees;
+//distinct ignores repetitive values
+
+--------JOINS-----------------
+34.	select employees.employee_id,employees.last_name,employees.department_id,departments.department_id,departments.department_name from employees,departments; 
+//Cartesian product or Cross join
+Combination of 2 table records
+select employees.employee_id,employees.last_name,employees.department_id,departments.department_id,departments.department_name from employees cross join departments;
+(Standard sql syntax)
+//equi join or inner join(standard) gives only matched records
+35.	
+select employees.employee_id,employees.last_name,employees.department_id,departments.department_id,departments.department_name from employees,departments where employees.department_id=departments.department_id;
+(standard syntax)
+select employees.employee_id,employees.last_name,employees.department_id,departments.department_id,departments.department_name from employees join departments on employees.department_id=departments.department_id;
+
+36.
+select e.employee_id,e.last_name,e.department_id,d.department_id,d.department_name from employees e join departments d on e.department_id=d.department_id;
+(Table alias)
