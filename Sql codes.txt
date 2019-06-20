@@ -113,3 +113,26 @@ select employees.employee_id,employees.last_name,employees.department_id,departm
 36.
 select e.employee_id,e.last_name,e.department_id,d.department_id,d.department_name from employees e join departments d on e.department_id=d.department_id;
 (Table alias)
+
+equi-join => natural join 
+==>perform join on common columns between tables
+==> common-in => same column name,data type and size
+==>common columns displayed only once
+[standard syntax]
+ select * from employees join departments using(department_id);
+37. select * from employees natural join departments;
+//perfect equi-join (perfectly matched records)
+
+--------------------
+Outer Join
+//matched and unmatched
+select e.employee_id,e.last_name,e.department_id,d.department_id,d.department_name from employees e right outer join departments d on e.department_id=d.department_id;
+select e.employee_id,e.last_name,e.department_id,d.department_id,d.department_name from employees e left outer join departments d on e.department_id=d.department_id;
+select e.employee_id,e.last_name,e.department_id,d.department_id,d.department_name from employees e full outer join departments d on e.department_id=d.department_id;
+
+Self join
+select w.employee_id,w.last_name,w.manager_id,m.employee_id,m.last_name from employees w join employees m on w.manager_id=m.employee_id order by w.employee_id;
+ 
+Non equi join
+
+select w.employee_id,w.last_name,w.manager_id,w.hire_date,m.employee_id,m.last_name,m.hire_date from employees w join employees m on w.manager_id=m.employee_id and w.hire_date<m.hire_date; 
