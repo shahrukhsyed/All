@@ -5,6 +5,7 @@ public class Demo5 {
 public static void main(String[] args) throws SQLException {
 	Connection con=null;
 	PreparedStatement updateSt=null;
+	PreparedStatement deleteSt=null;
 	PreparedStatement selectSt=null;
 	
 	//Load the driver	
@@ -32,7 +33,6 @@ public static void main(String[] args) throws SQLException {
 				if(rs1.next()) {
 					mb1=rs1.getLong("mobileno");
 					ah1=rs1.getString(3);
-					
 					System.out.println(ah1);
 					bal1=rs1.getDouble("balance");
 					System.out.println("Your balance is "+bal1);
@@ -75,7 +75,12 @@ public static void main(String[] args) throws SQLException {
 			i1+=updateSt.executeUpdate();
 			System.out.println("Account Updated "+i1);
 			
-			
+			System.out.println("Enter account id to delete");
+			int aid=sc.nextInt();
+			deleteSt=con.prepareStatement("delete from account where aid=?");
+			deleteSt.setInt(1, aid);//giving aid to deleteSt
+			rs1=deleteSt.executeQuery();
+			System.out.println("Account Deleted");
 			/*
 			System.out.println("Enter Accountholder Name: ");
 			String ah=sc.next();
